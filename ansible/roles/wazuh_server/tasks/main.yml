@@ -1,0 +1,34 @@
+- name : Actualizar la caché de APT e instalar dependencias base
+  apt:
+    update_cache: yes
+    name:
+      - curl
+      - tar
+      - apt-transport-https
+    state: present
+
+- name: Descargar el instalador unattended de Wazuh Server
+  get_url:
+      url: https://packages.wazuh.com/4.10/wazuh-install.sh
+      dest: /tmp/wazuh-install.sh
+      mode: '0755'
+
+- name: Verificar si Wazuh ya se encuentra instalado
+  stat:
+    path: /var/ossec/bin/wazuh-control
+  register: wazuh_binary
+
+- name: Ejecutar la instalación All-in-One de Wazuh
+  command: bash /tmp/wazuh-install.sh -a -i
+  when: not wazuh_binary.stat.exists
+  register: wazuh_install_output
+
+- name: Guardar output de credenciales en un archivo local de log
+  copy:
+    content: "{{ wazuh_install_output.stdout}}"
+    dest: /var/log/wazuh_install_credentials.log
+  when: wazuh_install_output.changed
+
+- name: Mostrar credenciales de acceso al finalizar
+  debug:
+    msg: "{{ wazuh_install_output.stdout_lines | default(['Wazuh ya estaba instalado previamente.']) }}"

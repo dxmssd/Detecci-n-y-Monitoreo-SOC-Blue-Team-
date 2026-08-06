@@ -1,0 +1,10 @@
+cat << 'EOF' > .gitignore
+# Estado local de Vagrant y logs
+.vagrant/
+*.log
+
+# Archivos de llaves o credenciales (por seguridad)
+*.key
+*.pub
+*.pem
+EOF

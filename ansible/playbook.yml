@@ -1,0 +1,12 @@
+---
+- name: Despliegue Automatizado de Wazuh Server (All-in-One)
+  hosts: wazuh_nodes
+  become: true
+  roles:
+    - wazuh_server
+
+- name: Instalacion y Registro de Agentes Wazuh
+  hosts: wazuh_agents
+  become: true
+  roles:
+    - wazuh_agent

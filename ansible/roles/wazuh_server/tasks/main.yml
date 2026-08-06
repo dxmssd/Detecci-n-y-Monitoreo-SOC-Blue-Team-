@@ -1,3 +1,4 @@
+---
 - name : Actualizar la caché de APT e instalar dependencias base
   apt:
     update_cache: yes

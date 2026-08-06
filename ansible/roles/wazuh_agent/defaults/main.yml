@@ -1,0 +1,5 @@
+---
+- name: Reiniciar agente de Wazuh
+  service:
+    name: wazuh-agent
+    state: restarted

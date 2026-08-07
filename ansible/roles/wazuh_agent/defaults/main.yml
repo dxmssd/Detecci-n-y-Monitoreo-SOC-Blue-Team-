@@ -1,5 +1,4 @@
 ---
-- name: Reiniciar agente de Wazuh
-  service:
-    name: wazuh-agent
-    state: restarted
+wazuh_manager_ip: "192.168.122.73"
+wazuh_agent_protocol: "TCP"
+wazuh_agent_group: "default"

@@ -29,7 +29,7 @@
 
 ---
 
-## 🏛️ Arquitectura del Entorno
+##  Arquitectura del Entorno
 
 ```text
        +-------------------------------------------------------------+
@@ -195,7 +195,7 @@ while True:
 - **Impacto en cliente legítimo:** `curl -m 3 -I http://192.168.121.104` devuelve error de `Connection timed out`.
 - **Telemetría en logs:** `/var/log/apache2/error.log` registra `server reached MaxRequestWorkers setting`, indexado en el grupo `rule.groups: "apache"`.
 
-## 📊 Monitoreo y Dashboards
+##  Monitoreo y Dashboards
 
 | Módulo | Ruta en Wazuh Dashboard | Filtro DQL Recomendado |
 | :--- | :--- | :--- |
@@ -204,7 +204,7 @@ while True:
 | **Web Server Events** | `Threat Intelligence` > `Threat Hunting` | `rule.groups: "apache"` |
 | **Compliance & Hardening** | `Endpoint Security` > `Configuration Assessment` | Inspección de agente `001` (CIS Benchmarks) |
 
-## 🛠️ Stack Tecnológico
+##  Stack Tecnológico
 
 - **SIEM / XDR:** Wazuh Manager, Indexer & Dashboard `4.10.4-1`
 - **Infraestructura como Código:** Vagrant, Ansible

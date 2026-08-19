@@ -1,0 +1,5 @@
+---
+- name: Reiniciar agente de Wazuh
+  systemd:
+    name: wazuh-agent
+    state: restarted

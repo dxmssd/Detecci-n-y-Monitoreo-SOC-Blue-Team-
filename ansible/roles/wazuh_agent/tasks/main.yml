@@ -1,0 +1,42 @@
+---
+- name: Instalar dependencias necesarias
+  apt:
+    name:
+      - curl
+      - gnupg
+      - apt-transport-https
+    state: present
+    update_cache: yes
+
+- name: Agregar clave GPG de Wazuh
+  apt_key:
+    url: https://packages.wazuh.com/key/GPG-KEY-WAZUH
+    state: present
+
+- name: Agregar repositorio de Wazuh
+  apt_repository:
+    repo: "deb https://packages.wazuh.com/4.x/apt/ stable main"
+    state: present
+    filename: wazuh
+
+- name: Instalar wazuh-agent
+  apt:
+    name: wazuh-agent
+    state: present
+    update_cache: yes
+  environment:
+    WAZUH_MANAGER: "{{ wazuh_manager_ip }}"
+    WAZUH_AGENT_GROUP: "{{ wazuh_agent_group }}"
+
+- name: Configurar IP del Manager en ossec.conf
+  lineinfile:
+    path: /var/ossec/etc/ossec.conf
+    regexp: '<address>.*</address>'
+    line: "        <address>{{ wazuh_manager_ip }}</address>"
+  notify: Reiniciar agente de Wazuh
+
+- name: Iniciar y habilitar servicio wazuh-agent
+  systemd:
+    name: wazuh-agent
+    state: started
+    enabled: yes

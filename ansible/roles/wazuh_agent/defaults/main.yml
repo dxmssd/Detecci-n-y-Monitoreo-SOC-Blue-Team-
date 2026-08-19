@@ -1,4 +1,4 @@
 ---
-wazuh_manager_ip: "192.168.122.73"
+wazuh_manager_ip: "192.168.121.26"
 wazuh_agent_protocol: "TCP"
 wazuh_agent_group: "default"
